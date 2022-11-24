@@ -1,0 +1,39 @@
+block scripts
+	link(rel='stylesheet', href='/js/simulator/nouislider/nouislider.css')
+	script(src='/js/simulator/nouislider/nouislider.min.js')
+	link(rel='stylesheet', href='/js/simulator/simulator.css')
+	script(src='/js/simulator/kidbright32/ldr.js')
+	script(src='/js/simulator/kidbright32/lm73.js')
+	script(src='/js/simulator/kidbright32/ports.js')
+	script(src='/js/simulator/kidbright32/button12.js')
+	script(src='/js/simulator/kidbright32/sound.js')
+	script(src='/js/simulator/kidbright32/mcp7940n.js')
+	script(src='/js/simulator/kidbright32/kb_list.js')
+	script(src='/js/simulator/kidbright32/kb_math.js')
+	script(src='/js/simulator/kidbright32/kb_mathplus.js')
+	script(src='/js/simulator/kidbright32/kb_servo.js')
+	script(src='/js/simulator/kidbright32/kb_fks.js')
+	script(src='/js/simulator/kidbright32/kb_espnow.js')
+	script(src='/js/simulator/kidbright32/kb_iot.js')
+	script(src='/js/simulator/kidbright32/kb_line.js')
+	script(src='/js/simulator/kidbright32/kb_bluetooth.js')
+	script(src='/js/simulator/kidbright32/kb_ifttt.js')
+	script(src='/js/simulator/kidbright32/kb_specio.js')
+	script(src='/js/simulator/netpie/kbiot.js')
+	script(src='/js/simulator/simulator.js')
+	script(src='/js/simulator/JS-Interpreter/acorn.js')
+	script(src='/js/simulator/JS-Interpreter/interpreter.js')
+
+.modal-simulator.modal.fade
+	.modal-dialog(style="width:100%; margin: auto")
+		.modal-content
+			.modal-header 1.41
+				button.close(style="color: #000080") <<< Click to Coding >>>
+				button.run 
+				//h4 Simulator
+			.modal-body
+
+				//div(style="height: 16px")
+
+				.shadows(style="text-align:center;padding: 0px")
+					object(data="/js/simulator/UnityBuild/index.html",style="width:100%;height:600px;margin-left:auto")#svgDoc
