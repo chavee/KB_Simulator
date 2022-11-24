@@ -41,13 +41,6 @@
     <p id="Text_esp_send2_mac">mac address</p>
     <p id="Text_esp_send2_val">0</p>
 
-    <button onclick="startWorker()">Start Worker</button> 
-    <button onclick="stopWorker()">Stop Worker</button>
-    <p id="result1">123456789</p>
-    <button onclick="startWorker2()">Start Worker 2</button> 
-    <button onclick="stopWorker2()">Stop Worker 2</button>
-    <p id="result2">123456789</p>
-
     <p id="Text_iot_gaugevalue1">0</p>
     <p id="Text_iot_gaugevalue2">0</p>
     <p id="Text_iot_gaugetitle1">0</p>
@@ -85,24 +78,6 @@
     <p id="Text_ift_val3">0</p>
     <p id="Text_nummsg_ift">0</p>
     
-    <p id="MQTT_">__________MQTT</p>
-    <p id="Text_mqtt_host"></p>
-    <p id="Text_mqtt_port"></p>
-    <p id="Text_mqtt_client_id"></p>
-    <p id="Text_mqtt_username">0</p>
-    <p id="Text_mqtt_password">0</p>
-    <p id="Text_mqtt_on_connect">0</p>
-    <p id="Text_mqtt_is_connect">0</p>
-    <p id="Text_mqtt_publish"></p>
-    <p id="Text_mqtt_value"></p>
-    <p id="Text_mqtt_subscribe">0</p>
-    <p id="Text_mqtt_callback">0</p>
-    <p id="Text_mqtt_get_topic"></p>
-    <p id="Text_mqtt_number">0</p>
-    <p id="Text_mqtt_text"></p>
-    <p id="Text_mqtt_publish_topic">0</p>
-    <p id="Text_mqtt_num">0</p>
-    <p id="MQTT_end">__________MQTT</p>
     
     <p id="Text_esp_recv">0</p>
     <p id="Text_esp_getmac"></p>
@@ -155,43 +130,6 @@
 
     <script src="TemplateData/responsive.javascript"></script>
     <script>
-
-        var w;
-        var w2;
-
-    function startWorker() {
-        if(typeof(Worker) !== "undefined") {
-            if(typeof(w) == "undefined") {
-                w = new Worker("src/demo_workers.js");
-            }
-            w.onmessage = function(event) {
-                document.getElementById("result1").innerHTML = event.data;
-            };
-        } else {
-            //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
-        }
-    }
-    function startWorker2() {
-        if(typeof(Worker) !== "undefined") {
-            if(typeof(w2) == "undefined") {
-                w2 = new Worker("src/demo_workers_2.js");
-            }
-            w2.onmessage = function(event) {
-                document.getElementById("result2").innerHTML = event.data;
-            };
-        } else {
-            //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
-        }
-    }
-
-    function stopWorker() { 
-        w.terminate();
-        w = undefined;
-    }
-    function stopWorker2() { 
-         w2.terminate();
-        w2 = undefined;
-    }
 
         var firstScene = true;
         var sceneVirtual = "SceneKV";
@@ -441,40 +379,6 @@
             return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_num",value));
         }
 
-        // MQTT
-        function MSG_MQTT_host(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_host",value));
-        }
-        function MSG_MQTT_port(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_port",value));
-        }
-        function MSG_MQTT_client_id(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_client_id",value));
-        }
-        function MSG_MQTT_username(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_username",value));
-        }
-        function MSG_MQTT_password(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_password",value));
-        }
-        function MSG_MQTT_publish(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_publish",value));
-        }
-        function MSG_MQTT_value(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_value",value));
-        }
-        function MSG_MQTT_nummsg(value)
-        {
-            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_num",value));
-        }
-
         // Bluetooth
         function MSG_BT_name(value)
         {
@@ -489,32 +393,6 @@
             return (gameInstance.SendMessage("MainCameraKB","Message_BT_num",value));
         }
         
-        /// Receive from KV --->
-        function Call_MQTT_onconnect(value)
-        {
-          document.getElementById("Text_mqtt_on_connect").innerHTML = value;
-        }
-        function Call_MQTT_callback(value)
-        {
-          document.getElementById("Text_mqtt_callback").innerHTML = value;
-        }
-        function Call_MQTT_publish_topic(value)
-        {
-            document.getElementById("Text_mqtt_publish_topic").innerHTML = value;
-        }
-        function Call_MQTT_gettopic(value)
-        {
-          document.getElementById("Text_mqtt_get_topic").innerHTML = value;
-        }
-        function Call_MQTT_getnumber(value)
-        {
-          document.getElementById("Text_mqtt_number").innerHTML = value;
-        }
-        function Call_MQTT_gettext(value)
-        {
-          document.getElementById("Text_mqtt_text").innerHTML = value;
-        }
-
         function Call_BT_nummsg(value)
         {
           document.getElementById("Text_nummsg_BT").innerHTML = value;
@@ -714,15 +592,6 @@
           MSG_IFTTT_val2(document.getElementById("Text_ift_val2").innerHTML);
           MSG_IFTTT_val3(document.getElementById("Text_ift_val3").innerHTML);
           MSG_IFTTT_nummsg(document.getElementById("Text_nummsg_ift").innerHTML);
-
-          MSG_MQTT_host(document.getElementById("Text_mqtt_host").innerHTML);
-          MSG_MQTT_port(document.getElementById("Text_mqtt_port").innerHTML);
-          MSG_MQTT_client_id(document.getElementById("Text_mqtt_client_id").innerHTML);
-          MSG_MQTT_username(document.getElementById("Text_mqtt_username").innerHTML);
-          MSG_MQTT_password(document.getElementById("Text_mqtt_password").innerHTML);
-          MSG_MQTT_publish(document.getElementById("Text_mqtt_publish").innerHTML);
-          MSG_MQTT_value(document.getElementById("Text_mqtt_value").innerHTML);
-          MSG_MQTT_nummsg(document.getElementById("Text_mqtt_num").innerHTML);
 
           MSG_BT_name(document.getElementById("Text_BT_name").innerHTML);
           MSG_BT_msg(document.getElementById("Text_BT_msg").innerHTML);
