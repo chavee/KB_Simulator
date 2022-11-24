@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>KidBright Virtual</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="src/FileSaver.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/KV.json", {onProgress: UnityProgress});
+    </script>
+  </head>
+  <body>
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 1280px; height: 720px"></div> 
+      <div class="footer"></div>
+
+    </div>
+    <details style="width: 50px; height: 50px; margin-left: 495px ;margin-top: 275px"> <summary>.</summary>
+    
+    <p id="IP_Client">0.0.0.0</p>
+    <p id="TextScene">SceneKV</p>
+    <p id="SceneExc">0</p>
+    <p id="TextLanguage">0</p>
+    <p id="TextExitKV">0</p> 
+    <p id="TextUSB">USB_Off</p>
+    <p id="TextOutput1">Output1_Off</p>
+    <p id="TextOutput2">Output2_Off</p>
+
+    <p id="TextServo">0</p>
+    <p id="TextServoP1">0</p>
+    <p id="TextServoP2">0</p>
+    <p id="TextMV3Move">0</p>
+    <p id="TextMV3Speed">0</p>
+    <p id="TextFKSMove">0</p>
+    <p id="TextFKSSpeed">0</p>
+    <p id="Text_esp_send_val">0</p>
+    <p id="Text_esp_send2_mac">mac address</p>
+    <p id="Text_esp_send2_val">0</p>
+
+    <button onclick="startWorker()">Start Worker</button> 
+    <button onclick="stopWorker()">Stop Worker</button>
+    <p id="result1">123456789</p>
+    <button onclick="startWorker2()">Start Worker 2</button> 
+    <button onclick="stopWorker2()">Stop Worker 2</button>
+    <p id="result2">123456789</p>
+
+    <p id="Text_iot_gaugevalue1">0</p>
+    <p id="Text_iot_gaugevalue2">0</p>
+    <p id="Text_iot_gaugetitle1">0</p>
+    <p id="Text_iot_gaugetitle2">0</p>
+    <p id="Text_iot_gaugeunit1">0</p>
+    <p id="Text_iot_gaugeunit2">0</p>
+    <p id="Text_iot_gaugecolor1">0</p>
+    <p id="Text_iot_gaugecolor2">0</p>
+    <p id="Text_iot_gaugemax1">100</p>
+    <p id="Text_iot_gaugemax2">100</p>
+
+    <p id="Text_iot_feedvalue1">0</p>
+    <p id="Text_iot_feedvalue2">0</p>
+    <p id="Text_iot_feedtitle">0</p>
+    <p id="Text_iot_feedcolor1">0</p>
+    <p id="Text_iot_feedcolor2">0</p>
+
+    <p id="Text_line_token"></p>
+    <p id="Text_line_msg"></p>
+    <p id="Text_line_img_1">0</p>
+    <p id="Text_line_img_2">0</p>
+    <p id="Text_line_stk_pack"></p>
+    <p id="Text_line_stk_id">0</p>
+    <p id="Text_nummsg_line">0</p>
+    <p id="Text_numstk_line">0</p>
+
+    <p id="Text_BT_name"></p>
+    <p id="Text_BT_msg"></p>
+    <p id="Text_nummsg_BT">0</p>
+
+    <p id="Text_ift_key"></p>
+    <p id="Text_ift_name"></p>
+    <p id="Text_ift_val1">0</p>
+    <p id="Text_ift_val2">0</p>
+    <p id="Text_ift_val3">0</p>
+    <p id="Text_nummsg_ift">0</p>
+    
+    <p id="MQTT_">__________MQTT</p>
+    <p id="Text_mqtt_host"></p>
+    <p id="Text_mqtt_port"></p>
+    <p id="Text_mqtt_client_id"></p>
+    <p id="Text_mqtt_username">0</p>
+    <p id="Text_mqtt_password">0</p>
+    <p id="Text_mqtt_on_connect">0</p>
+    <p id="Text_mqtt_is_connect">0</p>
+    <p id="Text_mqtt_publish"></p>
+    <p id="Text_mqtt_value"></p>
+    <p id="Text_mqtt_subscribe">0</p>
+    <p id="Text_mqtt_callback">0</p>
+    <p id="Text_mqtt_get_topic"></p>
+    <p id="Text_mqtt_number">0</p>
+    <p id="Text_mqtt_text"></p>
+    <p id="Text_mqtt_publish_topic">0</p>
+    <p id="Text_mqtt_num">0</p>
+    <p id="MQTT_end">__________MQTT</p>
+    
+    <p id="Text_esp_recv">0</p>
+    <p id="Text_esp_getmac"></p>
+    <p id="Text_esp_readstring">0</p>
+    <p id="Text_esp_readnum">0</p>
+    <p id="Text_joy1">0</p>
+    <p id="Text_joy2">0</p>
+    <p id="TextExitFKS">0</p>
+    <p id="TextSwitch1">0</p>
+    <p id="TextSwitch2">0</p>
+    <p id="TextLightSensor">0</p>
+    <p id="TextTempSensor">0</p>
+    <p id="TextInput1">0</p>
+    <p id="TextInput2">0</p>
+    <p id="TextInput3">0</p>
+    <p id="TextInput4">0</p>
+    <p id="TextAnalogInput1">0</p>
+    <p id="TextAnalogInput2">0</p>
+    <p id="TextAnalogInput3">0</p>
+    <p id="TextAnalogInput4">0</p>
+    <p id="TextClose">0</p>
+    <p id="TextRun">0</p>
+    <p id="TextSaveTime">0</p>
+    <p id="x0y0">0</p><p id="x0y1">0</p><p id="x0y2">0</p><p id="x0y3">0</p><p id="x0y4">0</p><p id="x0y5">0</p><p id="x0y6">0</p><p id="x0y7">0</p>
+    <p id="x1y0">0</p><p id="x1y1">0</p><p id="x1y2">0</p><p id="x1y3">0</p><p id="x1y4">0</p><p id="x1y5">0</p><p id="x1y6">0</p><p id="x1y7">0</p>
+    <p id="x2y0">0</p><p id="x2y1">0</p><p id="x2y2">0</p><p id="x2y3">0</p><p id="x2y4">0</p><p id="x2y5">0</p><p id="x2y6">0</p><p id="x2y7">0</p>
+    <p id="x3y0">0</p><p id="x3y1">0</p><p id="x3y2">0</p><p id="x3y3">0</p><p id="x3y4">0</p><p id="x3y5">0</p><p id="x3y6">0</p><p id="x3y7">0</p>
+    <p id="x4y0">0</p><p id="x4y1">0</p><p id="x4y2">0</p><p id="x4y3">0</p><p id="x4y4">0</p><p id="x4y5">0</p><p id="x4y6">0</p><p id="x4y7">0</p>
+    <p id="x5y0">0</p><p id="x5y1">0</p><p id="x5y2">0</p><p id="x5y3">0</p><p id="x5y4">0</p><p id="x5y5">0</p><p id="x5y6">0</p><p id="x5y7">0</p>
+    <p id="x6y0">0</p><p id="x6y1">0</p><p id="x6y2">0</p><p id="x6y3">0</p><p id="x6y4">0</p><p id="x6y5">0</p><p id="x6y6">0</p><p id="x6y7">0</p>
+    <p id="x7y0">0</p><p id="x7y1">0</p><p id="x7y2">0</p><p id="x7y3">0</p><p id="x7y4">0</p><p id="x7y5">0</p><p id="x7y6">0</p><p id="x7y7">0</p>
+    <p id="x8y0">0</p><p id="x8y1">0</p><p id="x8y2">0</p><p id="x8y3">0</p><p id="x8y4">0</p><p id="x8y5">0</p><p id="x8y6">0</p><p id="x8y7">0</p>
+    <p id="x9y0">0</p><p id="x9y1">0</p><p id="x9y2">0</p><p id="x9y3">0</p><p id="x9y4">0</p><p id="x9y5">0</p><p id="x9y6">0</p><p id="x9y7">0</p>
+    <p id="x10y0">0</p><p id="x10y1">0</p><p id="x10y2">0</p><p id="x10y3">0</p><p id="x10y4">0</p><p id="x10y5">0</p><p id="x10y6">0</p><p id="x10y7">0</p>
+    <p id="x11y0">0</p><p id="x11y1">0</p><p id="x11y2">0</p><p id="x11y3">0</p><p id="x11y4">0</p><p id="x11y5">0</p><p id="x11y6">0</p><p id="x11y7">0</p>
+    <p id="x12y0">0</p><p id="x12y1">0</p><p id="x12y2">0</p><p id="x12y3">0</p><p id="x12y4">0</p><p id="x12y5">0</p><p id="x12y6">0</p><p id="x12y7">0</p>
+    <p id="x13y0">0</p><p id="x13y1">0</p><p id="x13y2">0</p><p id="x13y3">0</p><p id="x13y4">0</p><p id="x13y5">0</p><p id="x13y6">0</p><p id="x13y7">0</p>
+    <p id="x14y0">0</p><p id="x14y1">0</p><p id="x14y2">0</p><p id="x14y3">0</p><p id="x14y4">0</p><p id="x14y5">0</p><p id="x14y6">0</p><p id="x14y7">0</p>
+    <p id="x15y0">0</p><p id="x15y1">0</p><p id="x15y2">0</p><p id="x15y3">0</p><p id="x15y4">0</p><p id="x15y5">0</p><p id="x15y6">0</p><p id="x15y7">0</p>
+
+    
+
+    <p id="CodeBlock">555</p>
+    <p id="TextOpenFile">0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000</p>
+    <p id="TextFileName">No file chosen</p>
+    <input type='file' id="autoClick" accept='text/plain' onchange='openFile(event)'><br>
+    <a href="" id="a">click here to download your file</a>
+
+    </details>
+
+    <script src="TemplateData/responsive.javascript"></script>
+    <script>
+
+        var w;
+        var w2;
+
+    function startWorker() {
+        if(typeof(Worker) !== "undefined") {
+            if(typeof(w) == "undefined") {
+                w = new Worker("src/demo_workers.js");
+            }
+            w.onmessage = function(event) {
+                document.getElementById("result1").innerHTML = event.data;
+            };
+        } else {
+            //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+        }
+    }
+    function startWorker2() {
+        if(typeof(Worker) !== "undefined") {
+            if(typeof(w2) == "undefined") {
+                w2 = new Worker("src/demo_workers_2.js");
+            }
+            w2.onmessage = function(event) {
+                document.getElementById("result2").innerHTML = event.data;
+            };
+        } else {
+            //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+        }
+    }
+
+    function stopWorker() { 
+        w.terminate();
+        w = undefined;
+    }
+    function stopWorker2() { 
+         w2.terminate();
+        w2 = undefined;
+    }
+
+        var firstScene = true;
+        var sceneVirtual = "SceneKV";
+        var x = 0;
+        var delay = 3000;
+
+        setTimeout(TimeDelay,delay);
+        setInterval(RunTime,1);
+
+        function TimeDelay()
+        {
+          MSGScene(document.getElementById("TextScene").innerHTML);
+          //startWorker();
+          //delay = 99999999;
+          //x = 1;
+        }
+        
+        /// Send to KV <---
+        function MSGExitKV(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageExitKV",value));
+        }
+        function MSGWriteUSB(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageWriteUSB",value));
+        }
+        function MSGWriteOutput1(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageWriteIO1",value));
+        }
+        function MSGWriteOutput2(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageWriteIO2",value));
+        }
+        function MSGLED(value)
+        {
+          if(sceneVirtual == "SceneKV"){
+              return (gameInstance.SendMessage("MainCameraKB","MessageLED",value));
+            }
+          else{
+              return (gameInstance.SendMessage("MainCameraFKS","MessageLED",value)); 
+            }
+            //return (gameInstance.SendMessage("MainCameraKB","MessageLED",value));
+        }
+        function MSGLoadFile(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageFileData",value));
+        }
+        function MSGLoadFileName(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageFileName",value));
+        }
+        function MSGServoAngle(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageServoAngle",value));
+        }
+        function MSGServoP1(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageServoP1",value));
+        }
+        function MSGServoP2(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageServoP2",value));
+        }
+        function MSGScene(value)
+        {
+          sceneVirtual = value;
+          if(firstScene == true){
+
+            return (gameInstance.SendMessage("MainCamKB","SceneGame",value)); 
+            firstScene = false;
+          }else{
+
+            /*if(value == "SceneKV"){
+              return (gameInstance.SendMessage("MainCameraFKS","SceneGame",value));  
+            }
+            else if(value == "ScenePrePost"){
+              return (gameInstance.SendMessage("MainCamEx","SceneGame",value));  
+            }
+            else{
+              return (gameInstance.SendMessage("MainCameraKB","SceneGame",value));  
+            }*/
+
+          }
+        }
+        function ExcScene(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","SceneExc",value)); 
+
+        }
+        function MSGCodeBlock(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","CodeBlock",value)); 
+
+        }
+        function MSGLanguage(value)
+        {
+          return (gameInstance.SendMessage("MainCameraKB","MessageLanguage",value));  
+        }
+        function MSGMV3move(value)
+        {
+          return (gameInstance.SendMessage("MainCameraFKS","MessageMV3Move",value));
+        }
+        function MSGMV3Speed(value)
+        {
+          return (gameInstance.SendMessage("MainCameraFKS","MessageMV3Speed",value));
+        }
+        function MSGFKSmove(value)
+        {
+          return (gameInstance.SendMessage("MainCameraFKS","MessageFKSMove",value));
+        }
+        function MSGFKSSpeed(value)
+        {
+          return (gameInstance.SendMessage("MainCameraFKS","MessageFKSSpeed",value));
+        }
+
+        function MSGespSendVal(value)
+        {
+            return (gameInstance.SendMessage("MainCameraFKS","MessageESPSendVal",value));
+        }
+        function MSGespSend2Mac(value)
+        {
+            return (gameInstance.SendMessage("MainCameraFKS","MessageESPSend2Mac",value));
+        }
+        function MSGespSend2Val(value)
+        {
+            return (gameInstance.SendMessage("MainCameraFKS","MessageESPSend2Val",value));
+        }
+
+        function MSG_iot_gaugevalue1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeValue1",value));
+        }
+        function MSG_iot_gaugevalue2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeValue2",value));
+        }
+        function MSG_iot_gaugetitle1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeTitle1",value));
+        }
+        function MSG_iot_gaugetitle2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeTitle2",value));
+        }
+        function MSG_iot_gaugeunit1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeUnit1",value));
+        }
+        function MSG_iot_gaugeunit2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeUnit2",value));
+        }
+        function MSG_iot_gaugecolor1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeColor1",value));
+        }
+        function MSG_iot_gaugecolor2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeColor2",value));
+        }
+        function MSG_iot_gaugeumax1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeMax1",value));
+        }
+        function MSG_iot_gaugeumax2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_gaugeMax2",value));
+        }
+        function MSG_iot_feedvalue1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_feedValue1",value));
+        }
+        function MSG_iot_feedvalue2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_feedValue2",value));
+        }
+         function MSG_iot_feedtitle(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_feedTitle",value));
+        }
+        function MSG_iot_feedcolor1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_feedColor1",value));
+        }
+        function MSG_iot_feedcolor2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_iot_feedColor2",value));
+        }
+
+        // Line Notify
+        function MSG_Line_token(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_token",value));
+        }
+        function MSG_Line_msg(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_msg",value));
+        }
+        function MSG_Line_img1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_img1",value));
+        }
+        function MSG_Line_img2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_img2",value));
+        }
+        function MSG_Line_stk_pack(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_stk_pack",value));
+        }
+        function MSG_Line_stk_id(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_stk_id",value));
+        }
+        function MSG_Line_nummsg(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_num",value));
+        }
+        function MSG_Line_numstk(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_line_numstk",value));
+        }
+        // IFTTT
+        function MSG_IFTTT_token(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_token",value));
+        }
+        function MSG_IFTTT_name(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_name",value));
+        }
+        function MSG_IFTTT_val1(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_val1",value));
+        }
+        function MSG_IFTTT_val2(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_val2",value));
+        }
+        function MSG_IFTTT_val3(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_val3",value));
+        }
+        function MSG_IFTTT_nummsg(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_IFTTT_num",value));
+        }
+
+        // MQTT
+        function MSG_MQTT_host(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_host",value));
+        }
+        function MSG_MQTT_port(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_port",value));
+        }
+        function MSG_MQTT_client_id(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_client_id",value));
+        }
+        function MSG_MQTT_username(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_username",value));
+        }
+        function MSG_MQTT_password(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_password",value));
+        }
+        function MSG_MQTT_publish(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_publish",value));
+        }
+        function MSG_MQTT_value(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_value",value));
+        }
+        function MSG_MQTT_nummsg(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_MQTT_num",value));
+        }
+
+        // Bluetooth
+        function MSG_BT_name(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_BT_name",value));
+        }
+        function MSG_BT_msg(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_BT_msg",value));
+        }
+        function MSG_BT_nummsg(value)
+        {
+            return (gameInstance.SendMessage("MainCameraKB","Message_BT_num",value));
+        }
+        
+        /// Receive from KV --->
+        function Call_MQTT_onconnect(value)
+        {
+          document.getElementById("Text_mqtt_on_connect").innerHTML = value;
+        }
+        function Call_MQTT_callback(value)
+        {
+          document.getElementById("Text_mqtt_callback").innerHTML = value;
+        }
+        function Call_MQTT_publish_topic(value)
+        {
+            document.getElementById("Text_mqtt_publish_topic").innerHTML = value;
+        }
+        function Call_MQTT_gettopic(value)
+        {
+          document.getElementById("Text_mqtt_get_topic").innerHTML = value;
+        }
+        function Call_MQTT_getnumber(value)
+        {
+          document.getElementById("Text_mqtt_number").innerHTML = value;
+        }
+        function Call_MQTT_gettext(value)
+        {
+          document.getElementById("Text_mqtt_text").innerHTML = value;
+        }
+
+        function Call_BT_nummsg(value)
+        {
+          document.getElementById("Text_nummsg_BT").innerHTML = value;
+        }
+        function Call_espGetMac(value)
+        {
+          document.getElementById("Text_esp_getmac").innerHTML = value;
+        }
+        function Call_espReadString(value)
+        {
+          document.getElementById("Text_esp_readstring").innerHTML = value;
+        }
+        function Call_espReadNum(value)
+        {
+          document.getElementById("Text_esp_readnum").innerHTML = value;
+        }
+        function Call_espOnrecv(value)
+        {
+          document.getElementById("Text_esp_recv").innerHTML = value;
+        }
+        function Call_joys1(value)
+        {
+          document.getElementById("Text_joy1").innerHTML = value;
+        }
+        function Call_joys2(value)
+        {
+          document.getElementById("Text_joy2").innerHTML = value;
+        }
+        var openFile = function(event) 
+        {
+          var input = event.target;
+          var reader = new FileReader();
+          reader.onload = function()
+          {
+            var text = reader.result;
+            var path = document.getElementById("autoClick").value;
+            var name = path.split(/\./)[0];
+            var fileName = name.substring(12);
+            //console.log(reader.result.substring(0, 200));
+            if(text != null)
+            { 
+              document.getElementById("TextOpenFile").innerHTML = text; 
+              document.getElementById("TextFileName").innerHTML = fileName; 
+            }
+            else
+            {
+              document.getElementById("TextOpenFile").innerHTML = "0000,0000,0000,0000,0000,0000,0000,0000,0000";
+              document.getElementById("TextFileName").innerHTML = "No file chosen"; 
+            }
+
+            //else{textLoad = "0000,0000,0000,0000,0000,0000,0000,0000";}
+            //else{ MSGLoadFile("0000,0000,0000,0000,0000,0000,0000,0000"); }
+            //document.getElementById("TextOpenFile").innerHTML = text;
+          };
+          reader.readAsText(input.files[0]);
+        };
+        function Call_LoaderProgram()
+        {
+          document.getElementById("autoClick").click();
+        }
+        function Call_ClearLoader()
+        {
+          document.getElementById("TextFileName").innerHTML = "No file chosen"; 
+        }
+
+        function Call_SW1(value)
+        {
+          document.getElementById("TextSwitch1").innerHTML = value;
+        }
+        function Call_SW2(value)
+        {
+          document.getElementById("TextSwitch2").innerHTML = value;
+        }
+        function Call_LightSensor(value)
+        {
+          document.getElementById("TextLightSensor").innerHTML = value;
+        }
+        function Call_TempSensor(value)
+        {
+          document.getElementById("TextTempSensor").innerHTML = value;
+        }
+        function Call_Input1(value)
+        {
+          document.getElementById("TextInput1").innerHTML = value;
+        }
+        function Call_Input2(value)
+        {
+          document.getElementById("TextInput2").innerHTML = value;
+        }
+        function Call_Input3(value)
+        {
+          document.getElementById("TextInput3").innerHTML = value;
+        }
+        function Call_Input4(value)
+        {
+          document.getElementById("TextInput4").innerHTML = value;
+        }
+        function Call_AnalogInput1(value)
+        {
+          document.getElementById("TextAnalogInput1").innerHTML = value;
+        }
+        function Call_AnalogInput2(value)
+        {
+          document.getElementById("TextAnalogInput2").innerHTML = value;
+        }
+        function Call_AnalogInput3(value)
+        {
+          document.getElementById("TextAnalogInput3").innerHTML = value;
+        }
+        function Call_AnalogInput4(value)
+        {
+          document.getElementById("TextAnalogInput4").innerHTML = value;
+        }
+        function Call_CloseSim(value)
+        {
+          document.getElementById("TextClose").innerHTML = value;
+        }
+        function Call_RunProgram(value)
+        {
+          x = value;
+          document.getElementById("TextRun").innerHTML = value;
+        }
+        function Call_SaveTime(value)
+        {
+          document.getElementById("TextSaveTime").innerHTML = value;
+        }
+        function Call_SaverProgram(name, value)
+        {
+          //var blob = new Blob([value], {type: "text/plain;charset=utf-8"});
+          //saveAs(blob, name);
+          SaveFile(value, name, 'text/plain');
+          document.getElementById("a").click();
+          //var FileSaver = require('kidbrightide-simulator');
+          //var blob = new Blob(["test test test"], {type: "text/plain;charset=utf-8"});
+          //saveAs(blob, "Save111.txt");
+        }
+        function SaveFile(text, name, type) 
+        {
+          var a = document.getElementById("a");
+          var file = new Blob([text], {type: type});
+          a.href = URL.createObjectURL(file);
+          a.download = name;
+        }
+        function Exit_FKS(value)
+        {
+          document.getElementById("TextExitFKS").innerHTML = value;
+        }
+        function RunTime()
+        {
+          
+          if(x == 1)
+          {
+            //delay = 99999999;
+          MSGWriteUSB(document.getElementById("TextUSB").innerHTML);
+          MSGWriteOutput1(document.getElementById("TextOutput1").innerHTML);  
+          MSGWriteOutput2(document.getElementById("TextOutput2").innerHTML);
+          MSGServoAngle(document.getElementById("TextServo").innerHTML);
+          MSGServoP1(document.getElementById("TextServoP1").innerHTML);  
+          MSGServoP2(document.getElementById("TextServoP2").innerHTML);
+          MSGMV3move(document.getElementById("TextMV3Move").innerHTML);
+          MSGMV3Speed(document.getElementById("TextMV3Speed").innerHTML);
+          MSGFKSmove(document.getElementById("TextFKSMove").innerHTML);
+          MSGFKSSpeed(document.getElementById("TextFKSSpeed").innerHTML);
+          MSGespSend2Val(document.getElementById("Text_esp_send2_val").innerHTML);
+          MSGespSend2Mac(document.getElementById("Text_esp_send2_mac").innerHTML);
+          MSGCodeBlock(document.getElementById("CodeBlock").innerHTML);
+
+          MSG_iot_gaugevalue1(document.getElementById("Text_iot_gaugevalue1").innerHTML);
+          MSG_iot_gaugevalue2(document.getElementById("Text_iot_gaugevalue2").innerHTML);
+          MSG_iot_gaugetitle1(document.getElementById("Text_iot_gaugetitle1").innerHTML);
+          MSG_iot_gaugetitle2(document.getElementById("Text_iot_gaugetitle2").innerHTML);
+          MSG_iot_gaugeunit1(document.getElementById("Text_iot_gaugeunit1").innerHTML);
+          MSG_iot_gaugeunit2(document.getElementById("Text_iot_gaugeunit2").innerHTML);
+          MSG_iot_gaugecolor1(document.getElementById("Text_iot_gaugecolor1").innerHTML);
+          MSG_iot_gaugecolor2(document.getElementById("Text_iot_gaugecolor2").innerHTML);
+          MSG_iot_gaugeumax1(document.getElementById("Text_iot_gaugemax1").innerHTML);
+          MSG_iot_gaugeumax2(document.getElementById("Text_iot_gaugemax2").innerHTML);
+
+          MSG_iot_feedvalue1(document.getElementById("Text_iot_feedvalue1").innerHTML);
+          MSG_iot_feedvalue2(document.getElementById("Text_iot_feedvalue2").innerHTML);
+          MSG_iot_feedtitle(document.getElementById("Text_iot_feedtitle").innerHTML);
+          MSG_iot_feedcolor1(document.getElementById("Text_iot_feedcolor1").innerHTML);
+          MSG_iot_feedcolor2(document.getElementById("Text_iot_feedcolor2").innerHTML);
+
+          MSG_Line_token(document.getElementById("Text_line_token").innerHTML);
+          MSG_Line_msg(document.getElementById("Text_line_msg").innerHTML);
+          MSG_Line_img1(document.getElementById("Text_line_img_1").innerHTML);
+          MSG_Line_img2(document.getElementById("Text_line_img_2").innerHTML);
+          MSG_Line_stk_pack(document.getElementById("Text_line_stk_pack").innerHTML);
+          MSG_Line_stk_id(document.getElementById("Text_line_stk_id").innerHTML);
+          MSG_Line_nummsg(document.getElementById("Text_nummsg_line").innerHTML);
+          MSG_Line_numstk(document.getElementById("Text_numstk_line").innerHTML);
+
+          MSG_IFTTT_token(document.getElementById("Text_ift_key").innerHTML);
+          MSG_IFTTT_name(document.getElementById("Text_ift_name").innerHTML);
+          MSG_IFTTT_val1(document.getElementById("Text_ift_val1").innerHTML);
+          MSG_IFTTT_val2(document.getElementById("Text_ift_val2").innerHTML);
+          MSG_IFTTT_val3(document.getElementById("Text_ift_val3").innerHTML);
+          MSG_IFTTT_nummsg(document.getElementById("Text_nummsg_ift").innerHTML);
+
+          MSG_MQTT_host(document.getElementById("Text_mqtt_host").innerHTML);
+          MSG_MQTT_port(document.getElementById("Text_mqtt_port").innerHTML);
+          MSG_MQTT_client_id(document.getElementById("Text_mqtt_client_id").innerHTML);
+          MSG_MQTT_username(document.getElementById("Text_mqtt_username").innerHTML);
+          MSG_MQTT_password(document.getElementById("Text_mqtt_password").innerHTML);
+          MSG_MQTT_publish(document.getElementById("Text_mqtt_publish").innerHTML);
+          MSG_MQTT_value(document.getElementById("Text_mqtt_value").innerHTML);
+          MSG_MQTT_nummsg(document.getElementById("Text_mqtt_num").innerHTML);
+
+          MSG_BT_name(document.getElementById("Text_BT_name").innerHTML);
+          MSG_BT_msg(document.getElementById("Text_BT_msg").innerHTML);
+          MSG_BT_nummsg(document.getElementById("Text_nummsg_BT").innerHTML);
+
+          MSGLED(document.getElementById("x0y0").innerHTML + "," + document.getElementById("x0y1").innerHTML+ "," + document.getElementById("x0y2").innerHTML
+          + "," + document.getElementById("x0y3").innerHTML+ "," + document.getElementById("x0y4").innerHTML+ "," + document.getElementById("x0y5").innerHTML
+          + "," + document.getElementById("x0y6").innerHTML+ "," + document.getElementById("x0y7").innerHTML+ "," +document.getElementById("x1y0").innerHTML + "," + document.getElementById("x1y1").innerHTML+ "," + document.getElementById("x1y2").innerHTML
+          + "," + document.getElementById("x1y3").innerHTML+ "," + document.getElementById("x1y4").innerHTML+ "," + document.getElementById("x1y5").innerHTML
+          + "," + document.getElementById("x1y6").innerHTML+ "," + document.getElementById("x1y7").innerHTML+ "," +document.getElementById("x2y0").innerHTML + "," + document.getElementById("x2y1").innerHTML+ "," + document.getElementById("x2y2").innerHTML
+          + "," + document.getElementById("x2y3").innerHTML+ "," + document.getElementById("x2y4").innerHTML+ "," + document.getElementById("x2y5").innerHTML
+          + "," + document.getElementById("x2y6").innerHTML+ "," + document.getElementById("x2y7").innerHTML+ "," +document.getElementById("x3y0").innerHTML + "," + document.getElementById("x3y1").innerHTML+ "," + document.getElementById("x3y2").innerHTML
+          + "," + document.getElementById("x3y3").innerHTML+ "," + document.getElementById("x3y4").innerHTML+ "," + document.getElementById("x3y5").innerHTML
+          + "," + document.getElementById("x3y6").innerHTML+ "," + document.getElementById("x3y7").innerHTML+ "," +document.getElementById("x4y0").innerHTML + "," + document.getElementById("x4y1").innerHTML+ "," + document.getElementById("x4y2").innerHTML
+          + "," + document.getElementById("x4y3").innerHTML+ "," + document.getElementById("x4y4").innerHTML+ "," + document.getElementById("x4y5").innerHTML
+          + "," + document.getElementById("x4y6").innerHTML+ "," + document.getElementById("x4y7").innerHTML+ "," +document.getElementById("x5y0").innerHTML + "," + document.getElementById("x5y1").innerHTML+ "," + document.getElementById("x5y2").innerHTML
+          + "," + document.getElementById("x5y3").innerHTML+ "," + document.getElementById("x5y4").innerHTML+ "," + document.getElementById("x5y5").innerHTML
+          + "," + document.getElementById("x5y6").innerHTML+ "," + document.getElementById("x5y7").innerHTML+ "," +document.getElementById("x6y0").innerHTML + "," + document.getElementById("x6y1").innerHTML+ "," + document.getElementById("x6y2").innerHTML
+          + "," + document.getElementById("x6y3").innerHTML+ "," + document.getElementById("x6y4").innerHTML+ "," + document.getElementById("x6y5").innerHTML
+          + "," + document.getElementById("x6y6").innerHTML+ "," + document.getElementById("x6y7").innerHTML+ "," +document.getElementById("x7y0").innerHTML + "," + document.getElementById("x7y1").innerHTML+ "," + document.getElementById("x7y2").innerHTML
+          + "," + document.getElementById("x7y3").innerHTML+ "," + document.getElementById("x7y4").innerHTML+ "," + document.getElementById("x7y5").innerHTML
+          + "," + document.getElementById("x7y6").innerHTML+ "," + document.getElementById("x7y7").innerHTML+ "," +document.getElementById("x8y0").innerHTML + "," + document.getElementById("x8y1").innerHTML+ "," + document.getElementById("x8y2").innerHTML
+          + "," + document.getElementById("x8y3").innerHTML+ "," + document.getElementById("x8y4").innerHTML+ "," + document.getElementById("x8y5").innerHTML
+          + "," + document.getElementById("x8y6").innerHTML+ "," + document.getElementById("x8y7").innerHTML+ "," +document.getElementById("x9y0").innerHTML + "," + document.getElementById("x9y1").innerHTML+ "," + document.getElementById("x9y2").innerHTML
+          + "," + document.getElementById("x9y3").innerHTML+ "," + document.getElementById("x9y4").innerHTML+ "," + document.getElementById("x9y5").innerHTML
+          + "," + document.getElementById("x9y6").innerHTML+ "," + document.getElementById("x9y7").innerHTML+ "," +document.getElementById("x10y0").innerHTML + "," + document.getElementById("x10y1").innerHTML+ "," + document.getElementById("x10y2").innerHTML
+          + "," + document.getElementById("x10y3").innerHTML+ "," + document.getElementById("x10y4").innerHTML+ "," + document.getElementById("x10y5").innerHTML
+          + "," + document.getElementById("x10y6").innerHTML+ "," + document.getElementById("x10y7").innerHTML+ "," +document.getElementById("x11y0").innerHTML + "," + document.getElementById("x11y1").innerHTML+ "," + document.getElementById("x11y2").innerHTML
+          + "," + document.getElementById("x11y3").innerHTML+ "," + document.getElementById("x11y4").innerHTML+ "," + document.getElementById("x11y5").innerHTML
+          + "," + document.getElementById("x11y6").innerHTML+ "," + document.getElementById("x11y7").innerHTML+ "," +document.getElementById("x12y0").innerHTML + "," + document.getElementById("x12y1").innerHTML+ "," + document.getElementById("x12y2").innerHTML
+          + "," + document.getElementById("x12y3").innerHTML+ "," + document.getElementById("x12y4").innerHTML+ "," + document.getElementById("x12y5").innerHTML
+          + "," + document.getElementById("x12y6").innerHTML+ "," + document.getElementById("x12y7").innerHTML+ "," +document.getElementById("x13y0").innerHTML + "," + document.getElementById("x13y1").innerHTML+ "," + document.getElementById("x13y2").innerHTML
+          + "," + document.getElementById("x13y3").innerHTML+ "," + document.getElementById("x13y4").innerHTML+ "," + document.getElementById("x13y5").innerHTML
+          + "," + document.getElementById("x13y6").innerHTML+ "," + document.getElementById("x13y7").innerHTML+ "," +document.getElementById("x14y0").innerHTML + "," + document.getElementById("x14y1").innerHTML+ "," + document.getElementById("x14y2").innerHTML
+          + "," + document.getElementById("x14y3").innerHTML+ "," + document.getElementById("x14y4").innerHTML+ "," + document.getElementById("x14y5").innerHTML
+          + "," + document.getElementById("x14y6").innerHTML+ "," + document.getElementById("x14y7").innerHTML+ "," +document.getElementById("x15y0").innerHTML + "," + document.getElementById("x15y1").innerHTML+ "," + document.getElementById("x15y2").innerHTML
+          + "," + document.getElementById("x15y3").innerHTML+ "," + document.getElementById("x15y4").innerHTML+ "," + document.getElementById("x15y5").innerHTML
+          + "," + document.getElementById("x15y6").innerHTML+ "," + document.getElementById("x15y7").innerHTML);
+
+          }
+          else
+          {
+            MSGLoadFile(document.getElementById("TextOpenFile").innerHTML);
+            MSGLoadFileName(document.getElementById("TextFileName").innerHTML);
+            MSGLanguage(document.getElementById("TextLanguage").innerHTML);
+
+
+          }
+          
+          ExcScene(document.getElementById("SceneExc").innerHTML);
+          MSGExitKV(document.getElementById("TextExitKV").innerHTML);
+        }
+        //document.getElementById("TextSwitch1").innerHTML = "0";
+        //document.getElementById("TextSwitch2").innerHTML = "0";
+        //document.getElementById("TextLightSensor").innerHTML = "0";
+        //document.getElementById("TextTempSensor").innerHTML = "0";
+        //document.getElementById("TextMonitorLED").innerHTML = "0";
+        //document.getElementById("TextValueMonitor").innerHTML = "0";
+        //$("#TextUSB", svgDoc).html('USB_Off');
+        //if ($("#TextSwitch2", svgDoc).text() == '0')
+          //mymsg(document.getElementById("test").innerHTML);
+          //MSGWriteUSB(document.getElementById("TextUSB").innerHTML);
+    
+    </script>
+
+  </body>
+
+</html>
