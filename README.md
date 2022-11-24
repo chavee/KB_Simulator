@@ -26,6 +26,6 @@ npm install
 npm start
 
 ### testing
-open web browser and browse to http://localhost:8000
+open web browser and browse to http://localhost:8001
 
 tested on Google Chrome browser
