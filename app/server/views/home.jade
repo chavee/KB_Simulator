@@ -1,0 +1,134 @@
+extends layout
+
+block content
+	nav.navbar-default(style="padding-left:0px;").header
+		.container-fluid(style="margin:0vh 1vw 0vh 1vw;")
+			ul.nav.navbar-nav
+				img(src="/images/SVG/Logo.svg", height="60").kb_logo_top
+			ul.nav.navbar-nav.navbar-right
+				li
+					.lang-container
+						.lang-text
+							a#home-lang-en(href="#",title="Switch to english language").link-url Eng
+						.lang-space.link-url
+							| |
+						.lang-text
+							a#home-lang-th(href="#",title="สลับไปใช้ภาษาไทย").link-url ไทย
+				li(style="padding-left: 10px")
+					.lang-container
+						.lang-text(style="color: #fff")#version-text
+							| version
+							
+			ul.nav.navbar-nav(style="padding-left: 200px;")
+				//li
+					//button#btn-ex1.navbar-btn.btn-icon(style="background-image: url(/images/SVG/ex1.svg)")
+				//li
+					//button#btn-ex2.navbar-btn.btn-icon(style="background-image: url(/images/SVG/ex2.svg)")
+				//li
+					//button#btn-ex3.navbar-btn.btn-icon(style="background-image: url(/images/SVG/ex3.svg)")
+				//li
+					//button#btn-practice.navbar-btn.btn-icon(style="font-size: 20px;") Practice
+				//i
+					//button#btn-exam.navbar-btn.btn-icon(style="font-size: 20px;") Exam
+
+				li
+					button#btn-new.navbar-btn.btn-icon(style="background-image: url(/images/SVG/new-file.svg)")
+				li
+					button#btn-open.navbar-btn.btn-icon(style="background-image: url(/images/SVG/h3.svg)")
+				li
+					a#btn-save.navbar-btn.btn-icon(style="background-image: url(/images/SVG/save-file.svg); margin-right:25px;" href="javascript:void(0)" download="data.txt")
+				//li
+					//button#btn-build.navbar-btn.btn-icon(disabled="true" style="background-image: url(/images/SVG/h1.svg)") Program //Build
+				li
+					button#btn-build.navbar-btn.btn-icon(disabled="true" style="background-image: url(/images/PNG/bkv.png)") Program Build
+				
+			ul.nav.navbar-nav(style="padding-left: 200px;")
+				//li
+					//button#btn-buildexam.navbar-btn.btn-icon(disabled="true" style="background-image: url(/images/PNG/bexam.png)")
+				
+				li
+					button#btn-buildfks.navbar-btn.btn-icon(disabled="true" style="background-image: url(/images/PNG/bfks.png)") 
+
+				//li
+					//button#btn-setclock.btn.btn-default.navbar-btn(disabled="true",style="margin-left: 20px") Set Clock
+				//li
+					//button#btn-wifi-config.btn.btn-default.navbar-btn WIFI Config
+				//li
+					//button#btn-qrcode.btn.btn-default.navbar-btn QR Code
+									
+	// blockly category language
+	- if (ulang == 'th')
+		include blockly-th
+	- else
+		include blockly
+
+	include modals/alert
+	include modals/confirm
+	include modals/prompt
+	include modals/build
+	include modals/save-file-browser
+	include modals/username-file-browser
+	include modals/save-overwrite-confirm
+	include modals/open-file-browser
+	include modals/panel-ex1
+	include modals/panel-ex2
+	include modals/panel-ex3
+	include modals/exam-file
+	include modals/exam-question
+	include modals/practice-file
+	include modals/newfile-confirm
+	include modals/delete-file-browser
+	include modals/delete-confirm
+	include modals/set-clock
+	include modals/setting-clock
+	include modals/wifi-config
+	include modals/qrcode
+	include modals/simulator
+
+block scripts
+
+	script(src='/vendor/jquery-2.2.3.min.js')
+	script(src='/vendor/jquery.form.min.js')
+	script(src='/vendor/bootstrap.min.js')
+	script(src='/vendor/moment.js')
+	script(src='/js/views/timezone-list.js')
+	script(src='/js/views/home.js')
+	script(src='/js/controllers/homeController.js')
+	// blockly
+	script(src='blockly/blockly_compressed.js')
+	//script(src='blockly/blockly_uncompressed.js')
+	script(src='blockly/blocks_compressed.js')
+	script(src='blockly/javascript_compressed.js')
+	// blockly blocks language
+	script(src='blockly/lang.js')
+	script(src='blockly/kidbright/blocks.js')
+	script(src='blockly/kidbright/blocks-iot.js')
+	script(src='blockly/kidbright/blocks-math.js')
+	script(src='blockly/kidbright/blocks-string.js')
+	script(src='blockly/kidbright/blocks-array.js')
+	script(src='blockly/kidbright/blocks-function.js')
+	script(src='blockly/kidbright/blocks-netpie.js')
+	script(src='blockly/kidbright/blocks-servo.js')
+	script(src='blockly/kidbright/blocks-espnow.js')
+	script(src='blockly/kidbright/blocks-fks.js')
+	script(src='blockly/kidbright/blocks-line.js')
+	script(src='blockly/kidbright/blocks-bt.js')
+	script(src='blockly/kidbright/blocks-ifttt.js')
+	script(src='blockly/kidbright/blocks-specio.js')
+	script(src='blockly/kidbright/generators.js')
+	script(src='blockly/kidbright/generators-iot.js')
+	script(src='blockly/kidbright/generators-netpie.js')
+	script(src='blockly/kidbright/generators-math.js')
+	script(src='blockly/kidbright/generators-string.js')
+	script(src='blockly/kidbright/generators-array.js')
+	script(src='blockly/kidbright/generators-function.js')
+	script(src='blockly/kidbright/generators-servo.js')
+	script(src='blockly/kidbright/generators-espnow.js')
+	script(src='blockly/kidbright/generators-fks.js')
+	script(src='blockly/kidbright/generators-line.js')
+	script(src='blockly/kidbright/generators-bt.js')
+	script(src='blockly/kidbright/generators-ifttt.js')
+	script(src='blockly/kidbright/generators-specio.js')
+	script(src='plugins.js')
+	script(src='blockly/kidbright/app.js')
+	srcipt(src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/FileSaver.js")
