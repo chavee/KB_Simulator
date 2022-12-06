@@ -1674,14 +1674,14 @@ console.log(code_str)
 			setTimeout(function () {
 				function main_stepInterpreter() {
 					try {
-						//var ok = interpreter.step();
+						var ok = interpreter.step();
 						if (simulator_running) {
 							setTimeout(main_stepInterpreter, 0);
 						}
 					} finally {
-						//if (!ok) {
+						if (!ok) {
 
-						//}
+						}
 					}
 				}
 				main_stepInterpreter();
