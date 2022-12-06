@@ -729,6 +729,9 @@ function Simulator() {
 
 	//this.run = function(code_, scene) 
 	this.run = function(code_str, scene, lang) {
+
+console.log(code_str)
+
 		codeBlock = code_str;
 		sceneGame = scene;
 		langugeGame = lang;
@@ -1245,13 +1248,13 @@ function Simulator() {
 				// =============================================================
 				// kb_MotorV3
 				// =============================================================
-				KB_MOTORV3 = interpreter.createObject(interpreter.OBJECT);
-				interpreter.setProperty(scope, 'kb_motorv3', KB_MOTORV3);
+				// KB_MOTORV3 = interpreter.createObject(interpreter.OBJECT);
+				// interpreter.setProperty(scope, 'kb_motorv3', KB_MOTORV3);
 
-				var kb_motorv3_motorMovement = function(mov,spd) {
-					return interpreter.createPrimitive(kb_motorv3.motorMovement(mov,spd));
-				};
-				interpreter.setProperty(KB_MOTORV3, 'motorMovement', interpreter.createNativeFunction(kb_motorv3_motorMovement));
+				// var kb_motorv3_motorMovement = function(mov,spd) {
+				// 	return interpreter.createPrimitive(kb_motorv3.motorMovement(mov,spd));
+				// };
+				// interpreter.setProperty(KB_MOTORV3, 'motorMovement', interpreter.createNativeFunction(kb_motorv3_motorMovement));
 
 				// =============================================================
 				// kb_FKS
@@ -1642,6 +1645,24 @@ function Simulator() {
 					return interpreter.createPrimitive(mcp7940n.get(val));
 				};
 				interpreter.setProperty(MCP7940N, 'get', interpreter.createNativeFunction(mcp7940n_get));
+
+
+// ===================
+// netpie
+// ===================
+//    interpreter.setProperty(console, 'url', String(location));
+
+    interpreter.setProperty(console, 'logx',
+    	interpreter.createNativeFunction(console.log)
+    );
+
+
+
+
+
+
+
+
 			}
 			//var interpreter = new Interpreter(code, initFunc);
 		});

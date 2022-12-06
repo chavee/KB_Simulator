@@ -1053,3 +1053,40 @@ Blockly.Msg.BT_GET_PASS = "Bluetooth get password";
 Blockly.Msg.BT_ON_RECEIVED = "Bluetooth on received";
 Blockly.Msg.BT_GET_DATA = "Bluetooth get data";
 Blockly.Msg.BT_SEND_DATA = "Bluetooth send data";
+
+// netpie platform
+/** @export */ Blockly.Msg.NETPIE_WRITE_SHADOW = "%1 Write shadow field %2 with value %3";
+/** @export */ Blockly.Msg.NETPIE_WRITE_SHADOW_TOOLTIP = "Write device shadow input1 set field to write shadow like json (home.temp) and input2 for set value.";
+
+/** @export */ Blockly.Msg.NETPIE_ON_RECEIVE_MESSAGE = "%1 On received message of topic @msg/ %2 %3 %4";
+/** @export */ Blockly.Msg.NETPIE_ON_RECEIVE_MESSAGE_TOOLTIP = "Event recevie message of topic statement";
+
+/** @export */ Blockly.Msg.NETPIE_RECEIVE_MESSAGE = "%1 Message payload as  %2";
+/** @export */ Blockly.Msg.NETPIE_RECEIVE_MESSAGE_TOOLTIP = "Receive message then select data type."
+
+/** @export */ Blockly.Msg.NETPIE_PUBLISH_MESSAGE = "%1 Publish to topic @msg/ %2 with payload  %3"
+/** @export */ Blockly.Msg.NETPIE_PUBLISH_MESSAGE_TOOLTIP = "Publish message with topic and payload. example input1 is topic home/temp and input2 is payload 25. ";
+
+/** @export */ Blockly.Msg.NETPIE_SUBSCRIBE = "%1 Subscribe to topic @msg/ %2";
+/** @export */ Blockly.Msg.NETPIE_SUBSCRIBE_TOOLTIP = "Subscribe topic";
+
+/** @export */ Blockly.Msg.NETPIE_ON_SHADOW_UPDATED = "%1 On shadow updated %2 %3";
+/** @export */ Blockly.Msg.NETPIE_ON_SHADOW_UPDATED_TOOLTIP = "Event shadow updated statement";
+
+/** @export */ Blockly.Msg.NETPIE_RECEIVE_SHADOW_UPDATED = "%1 Field %2 as %3";
+/** @export */ Blockly.Msg.NETPIE_RECEIVE_SHADOW_UPDATED_TOOLTIP = "Input1 get device shadow like json. exmaple use home.temp to get 25 from { home: { temp: 25 } }. Input2 select data type.";
+
+/** @export */ Blockly.Msg.NETPIE_SHADOW_CONTAIN_FIELD = "%1 Variable %2 has value";
+/** @export */ Blockly.Msg.NETPIE_SHADOW_CONTAIN_FIELD_TOOLTIP = "Check if shadow contain field. example home.temp";
+
+/** @export */ Blockly.Msg.NETPIE_READ_ENTITE_SHADOW = "%1 Read shadow %2 %3";
+/** @export */ Blockly.Msg.NETPIE_READ_ENTITE_SHADOW_TOOLTIP = "Read entire shadow statement";
+
+/** @export */ Blockly.Msg.NETPIE_ON_CONNECTED = "%1 On connected %2 %3";
+/** @export */ Blockly.Msg.NETPIE_ON_CONNECTED_TOOLTIP = "Event on connected with NETPIE";
+
+/** @export */ Blockly.Msg.NETPIE_ON_DISCONNECTED = "%1 On disconnected %2 %3";
+/** @export */ Blockly.Msg.NETPIE_ON_DISCONNECTED_TOOLTIP = "Event on disconnected with NETPIE";
+
+/** @export */ Blockly.Msg.NETPIE_CONNECT = "%1 Connect NETPIE %2 Device ID %3 %4 Device Token %5";
+/** @export */ Blockly.Msg.NETPIE_CONNECT_TOOLTIP = "Connect NETPIE by device id and device token";

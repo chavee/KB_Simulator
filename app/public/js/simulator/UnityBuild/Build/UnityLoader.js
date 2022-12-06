@@ -2219,10 +2219,10 @@ var UnityLoader = UnityLoader || {
                 preRun: [],
                 postRun: [],
                 print: function(e) {
-                    console.log(e)
+                    //console.log(e)
                 },
                 printErr: function(e) {
-                    console.error(e)
+                    //console.error(e)
                 },
                 Jobs: {},
                 buildDownloadProgress: {},
