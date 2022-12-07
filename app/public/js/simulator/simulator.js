@@ -1647,17 +1647,56 @@ console.log(code_str)
 				interpreter.setProperty(MCP7940N, 'get', interpreter.createNativeFunction(mcp7940n_get));
 
 
-// ===================
-// netpie
-// ===================
-//    interpreter.setProperty(console, 'url', String(location));
+				// ===================
+				// netpie
+				// ===================
 
-    interpreter.setProperty(console, 'logx',
-    	interpreter.createNativeFunction(console.log)
-    );
+				NETPIE = interpreter.createObject(interpreter.OBJECT);
+				interpreter.setProperty(scope, 'netpie', NETPIE);
+
+				var netpie_connect = function(host, deviceid, devicetoken) {
+					return interpreter.createPrimitive(netpie.connect(host, deviceid, devicetoken));
+				};
+				interpreter.setProperty(NETPIE, 'connect', interpreter.createNativeFunction(netpie_connect));
 
 
+				var netpie_subscribe = function(topic) {
+					return interpreter.createPrimitive(netpie.subscribe(topic, payload));
+				};
+				interpreter.setProperty(NETPIE, 'subscribe', interpreter.createNativeFunction(netpie_subscribe));
 
+
+				var netpie_publish = function(topic, payload) {
+					return interpreter.createPrimitive(netpie.publish(topic, payload));
+				};
+				interpreter.setProperty(NETPIE, 'publish', interpreter.createNativeFunction(netpie_publish));
+
+				var netpie_on = function(event, callback) {
+					return interpreter.createPrimitive(netpie.on(event, callback));
+				};
+				interpreter.setProperty(NETPIE, 'on', interpreter.createNativeFunction(netpie_on));
+
+				// ===================
+				// misc func
+				// ===================
+
+				EMITTER = interpreter.createObject(interpreter.OBJECT);
+				interpreter.setProperty(scope, 'emitter', EMITTER);
+
+				interpreter.setProperty(EMITTER, 'on', interpreter.createNativeFunction(function(event, callback) {
+					return interpreter.createPrimitive(emitter.on(event, callback));
+				}));
+
+				interpreter.setProperty(EMITTER, 'emit', interpreter.createNativeFunction(function(event, payload1, payload2) {
+					return interpreter.createPrimitive(emitter.emit(event, payload1, payload2));
+				}));
+
+				MISC_FUNC = interpreter.createObject(interpreter.OBJECT);
+				interpreter.setProperty(scope, 'exec_callback', MISC_FUNC);
+
+				interpreter.setProperty(MISC_FUNC, 'exec_callback', interpreter.createNativeFunction(function(event, callback) {
+					return interpreter.createPrimitive(exec_callback(event, callback));
+				}));
 
 
 
@@ -1668,24 +1707,28 @@ console.log(code_str)
 		});
 		$('.modal-simulator button.run').click(function() {
 			//var interpreter = new Interpreter(code_, initFunc);
-			interpreter = new Interpreter(code_, initFunc);
-			simulator_running = true;
-			
-			setTimeout(function () {
-				function main_stepInterpreter() {
-					try {
-						var ok = interpreter.step();
-						if (simulator_running) {
-							setTimeout(main_stepInterpreter, 0);
-						}
-					} finally {
-						if (!ok) {
 
+			try {
+				interpreter = new Interpreter(code_, initFunc);
+				simulator_running = true;			
+				setTimeout(function () {
+					function main_stepInterpreter() {
+						try {
+							var ok = interpreter.step();
+							if (simulator_running) {
+								setTimeout(main_stepInterpreter, 0);
+							}
+						} finally {
+							if (!ok) {
+
+							}
 						}
 					}
-				}
-				main_stepInterpreter();
-			}, 1000); //from 1000
+					main_stepInterpreter();
+				}, 1000); //from 1000
+     		}
+			catch(e) {}
+
 		});
 	}
 	// initialize

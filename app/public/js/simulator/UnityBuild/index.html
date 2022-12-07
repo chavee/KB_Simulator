@@ -150,7 +150,13 @@
         /// Send to KV <---
         function MSGExitKV(value)
         {
-          return (gameInstance.SendMessage("MainCameraKB","MessageExitKV",value));
+          try {
+            return (gameInstance.SendMessage("MainCameraKB","MessageExitKV",value));
+          }
+          catch(e) {
+            
+          }
+
         }
         function MSGWriteUSB(value)
         {
@@ -176,11 +182,21 @@
         }
         function MSGLoadFile(value)
         {
-          return (gameInstance.SendMessage("MainCameraKB","MessageFileData",value));
+          try {
+              return (gameInstance.SendMessage("MainCameraKB","MessageFileData",value));
+          }
+          catch(e) {
+
+          }
         }
         function MSGLoadFileName(value)
         {
-          return (gameInstance.SendMessage("MainCameraKB","MessageFileName",value));
+          try {
+              return (gameInstance.SendMessage("MainCameraKB","MessageFileName",value));
+          }
+          catch(e) {
+
+          }
         }
         function MSGServoAngle(value)
         {
@@ -217,8 +233,12 @@
         }
         function ExcScene(value)
         {
-          return (gameInstance.SendMessage("MainCameraKB","SceneExc",value)); 
+          try {
+            return (gameInstance.SendMessage("MainCameraKB","SceneExc",value)); 
+          }
+          catch(e) {
 
+          }
         }
         function MSGCodeBlock(value)
         {
@@ -227,7 +247,13 @@
         }
         function MSGLanguage(value)
         {
-          return (gameInstance.SendMessage("MainCameraKB","MessageLanguage",value));  
+          try {
+            return (gameInstance.SendMessage("MainCameraKB","MessageLanguage",value));  
+          }
+          catch(e) {
+
+          }
+
         }
         function MSGMV3move(value)
         {

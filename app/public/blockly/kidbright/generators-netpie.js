@@ -26,7 +26,7 @@ Blockly.JavaScript['netpie_received_message'] = function(block) {
 Blockly.JavaScript['netpie_publish_message'] = function(block) {
     var value_topic = block.getFieldValue('topic');
     var value_data = Blockly.JavaScript.valueToCode(block, 'data', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = 'netpie_publish("@msg/' + value_topic + '", '+ value_data +');\n';
+    var code = 'netpie.publish("@msg/' + value_topic + '", '+ value_data +');\n';
     return code;
 };
 Blockly.JavaScript['netpie_subscribe'] = function(block) {
@@ -70,7 +70,7 @@ Blockly.JavaScript['netpie_read_entire_shadow'] = function(block) {
 };
 Blockly.JavaScript['netpie_on_connected'] = function(block) {
     var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-    var code = 'KBNETPIE__on_connected([]() {\n' + 
+    var code = `netpie.on('connected', function(){\n` + 
         statements_name + '});\n';
     return code;
 };
@@ -83,10 +83,8 @@ Blockly.JavaScript['netpie_on_disconnected'] = function(block) {
 Blockly.JavaScript['netpie_connect'] = function(block) {
     var text_device_id = block.getFieldValue('DEVICE_ID');
     var text_device_token = block.getFieldValue('DEVICE_TOKEN');
-    code = 'console.log("HaHa")';
-    // var code = 	'netpie_subscribe("@msg/#");\n' +
-    //             'netpie_subscribe("@private/#");\n' +
-    //             `netpie_connect("mqtt://mqtt.netpie.io:1883", "${text_device_id}", "${text_device_token}");\n`;
+    // var code = 	`netpie.subscribe("@msg/#");\nnetpie.subscribe("@private/#");\nnetpie.connect("mqtt://mqtt.netpie.io:1883\n", "${text_device_id}", "${text_device_token}");`;
+    var code =  `netpie.connect(",mqtt.netpie.io:443", "${text_device_id}", "${text_device_token}");`;
     return code;
   };
   
