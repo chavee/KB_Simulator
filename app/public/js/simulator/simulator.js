@@ -1,5 +1,7 @@
 const portTICK_RATE_MS = 1;
 
+var interpreter; 
+
 function Simulator() {
 	var initialised = false;
 	var svgDoc = null;
@@ -13,7 +15,6 @@ function Simulator() {
 	var kb_math = new KB_math();
 	//var kb_task = new KB_task();
 	var kb_mathplus = new KB_mathplus();
-	var interpreter; 
 
 	var runSim = 0;
 	var initFunc = null;
@@ -1654,49 +1655,53 @@ console.log(code_str)
 				NETPIE = interpreter.createObject(interpreter.OBJECT);
 				interpreter.setProperty(scope, 'netpie', NETPIE);
 
-				var netpie_connect = function(host, deviceid, devicetoken) {
+
+				interpreter.setProperty(NETPIE, 'connect', interpreter.createNativeFunction(function(host, deviceid, devicetoken) {
 					return interpreter.createPrimitive(netpie.connect(host, deviceid, devicetoken));
-				};
-				interpreter.setProperty(NETPIE, 'connect', interpreter.createNativeFunction(netpie_connect));
+				}));
 
+				interpreter.setProperty(NETPIE, 'subscribe', interpreter.createNativeFunction(function(topic) {
+					return interpreter.createPrimitive(netpie.subscribe(topic));
+				}));
 
-				var netpie_subscribe = function(topic) {
-					return interpreter.createPrimitive(netpie.subscribe(topic, payload));
-				};
-				interpreter.setProperty(NETPIE, 'subscribe', interpreter.createNativeFunction(netpie_subscribe));
-
-
-				var netpie_publish = function(topic, payload) {
+				interpreter.setProperty(NETPIE, 'publish', interpreter.createNativeFunction(function(topic, payload) {
 					return interpreter.createPrimitive(netpie.publish(topic, payload));
-				};
-				interpreter.setProperty(NETPIE, 'publish', interpreter.createNativeFunction(netpie_publish));
+				}));
 
-				var netpie_on = function(event, callback) {
-					return interpreter.createPrimitive(netpie.on(event, callback));
-				};
-				interpreter.setProperty(NETPIE, 'on', interpreter.createNativeFunction(netpie_on));
+				interpreter.setProperty(NETPIE, 'writeshadow', interpreter.createNativeFunction(function(key, value) {
+					return interpreter.createPrimitive(netpie.writeshadow(key, value));
+				}));
+
 
 				// ===================
 				// misc func
 				// ===================
 
-				EMITTER = interpreter.createObject(interpreter.OBJECT);
-				interpreter.setProperty(scope, 'emitter', EMITTER);
+				CONSOLE = interpreter.createObject(interpreter.OBJECT);
+				interpreter.setProperty(scope, 'console', CONSOLE);
 
-				interpreter.setProperty(EMITTER, 'on', interpreter.createNativeFunction(function(event, callback) {
-					return interpreter.createPrimitive(emitter.on(event, callback));
+				interpreter.setProperty(CONSOLE, 'log', interpreter.createNativeFunction(function(text) {
+					return interpreter.createPrimitive(console.log(text));
 				}));
 
-				interpreter.setProperty(EMITTER, 'emit', interpreter.createNativeFunction(function(event, payload1, payload2) {
-					return interpreter.createPrimitive(emitter.emit(event, payload1, payload2));
-				}));
+				// __JSON = interpreter.createObject(interpreter.OBJECT);
+				// interpreter.setProperty(scope, 'JSON', __JSON);
 
-				MISC_FUNC = interpreter.createObject(interpreter.OBJECT);
-				interpreter.setProperty(scope, 'exec_callback', MISC_FUNC);
+				// interpreter.setProperty(__JSON, 'parse', interpreter.createNativeFunction(function(text) {
+				// 	return interpreter.createPrimitive(json.parse(text));
+				// }));
 
-				interpreter.setProperty(MISC_FUNC, 'exec_callback', interpreter.createNativeFunction(function(event, callback) {
-					return interpreter.createPrimitive(exec_callback(event, callback));
-				}));
+
+				// interpreter.setProperty(EMITTER, 'emit', interpreter.createNativeFunction(function(event, payload1, payload2) {
+				// 	return interpreter.createPrimitive(emitter.emit(event, payload1, payload2));
+				// }));
+
+				// MISC_FUNC = interpreter.createObject(interpreter.OBJECT);
+				// interpreter.setProperty(scope, 'exec_callback', MISC_FUNC);
+
+				// interpreter.setProperty(MISC_FUNC, 'exec_callback', interpreter.createNativeFunction(function(event, callback) {
+				// 	return interpreter.createPrimitive(exec_callback(event, callback));
+				// }));
 
 
 

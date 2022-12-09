@@ -87,99 +87,54 @@ let misc_func = {
 }
 
 
-let emitter = {
-    on(event, handler) {
-        if (!eventhandler[event]) {
-            eventhandler[event] = [];
-        }
-        for (let c of eventhandler[event]) {
-            if (c === handler) return;
-        }
-        eventhandler[event].push(handler);
-    },
 
-    once(event, handler) {
-        if (!eventhandler_once[event]) {
-            eventhandler_once[event] = [];
-        }
-        for (let c of eventhandler_once[event]) {
-            if (c === handler) return;
-        }
-        eventhandler_once[event].push(handler);
-    },
-
-    emit(event, topic, payload1, payload2, payload3) {
-        if (eventhandler[event]) {
-
-console.log('under emit--->>>')
-console.log(event)
-console.log(eventhandler)
-
-            for (let c of eventhandler[event]) {
-            	console.log(111)
-                misc_func.exec_callback(c, topic, payload1, payload2, payload3);
-            }
-        }       
-        if (eventhandler_once[event]) {
-            for (let c of eventhandler_once[event]) {
-                if (typeof(c) == 'function') {
-                    c(topic, payload1, payload2, payload3);
-                }
-
-                let plist = eventhandler_once[event];
-                for (let i in plist) {
-                    if (plist[i] === c) {
-                        plist.splice(i,1);
-                        return;
-                    } 
-                }
-            }
-        }       
-    },
-
-    removeAllListeners(event) {
-        if (event) {
-            delete eventhandler[event];
-            delete eventhandler_once[event];
-        }
-        else {
-            eventhandler = {};
-            eventhandler_once = {};
-        }
-    },
-    removeListener(event, handler) {
-        // if (!eventhandler[event]) {
-        //     return;
-        // }
-        let plist;
-
-        plist = eventhandler[event];
-        for (let i in plist) {
-            if (plist[i] === handler) {
-                plist.splice(i,1);
-                return;
-            } 
-        }       
-
-        plist = eventhandler_once[event];
-        for (let i in plist) {
-            if (plist[i] === handler) {
-                plist.splice(i,1);
-                return;
-            } 
-        }       
-    }
-}
+let current_deviceid, current_devicetoken;
 
 function _onConnected() {
-	console.log('connected --------------->>>')
-	emitter.emit('connected');
+	console.log('connected --------------->>>');
+	netpie_client.subscribe('@shadow/data/updated');
+	interpreter.appendCode('on_netpie_connected()');
+}
+
+function _onDisconnected() {
+	console.log('disconnected --------------->>>');
+	interpreter.appendCode('on_netpie_disconnected()');
+	setTimeout(() => {
+		console.log('Auto reconnect...')
+		netpie_client.connect({
+			userName: devicetoken,
+			password: '',
+			useSSL: true,
+			onSuccess: _onConnected
+		});
+
+	},1000);
+
+}
+
+function _onMessage(msg) {
+	var topic = msg.destinationName;
+	var payload = msg.payloadString;
+	
+	if (topic.startsWith('@msg/')) {
+		interpreter.appendCode(`netpie_message_handle("${topic}","${payload}")`);
+	}
+	else if (topic.startsWith('@shadow/data/updated')) {
+		var jsontext = JSON.stringify(payload);
+		interpreter.appendCode(`netpie_shadow_updated_handle(${jsontext})`);
+	}
 }
 
 
 var netpie = {
-	connect : function(host, deviceid, devicetoken) {
+	connect : function(_host, _deviceid, _devicetoken) {
+		deviceid = _deviceid;
+		devicetoken = _devicetoken;
+
 		netpie_client = new Paho.MQTT.Client('mqtt.netpie.io', 443, deviceid);
+		netpie_client.onConnectionLost = _onDisconnected;
+		netpie_client.onMessageArrived = _onMessage;
+
 		return netpie_client.connect({
 			userName: devicetoken,
 			password: '',
@@ -189,23 +144,31 @@ var netpie = {
 	},
 
 	subscribe : function(topic) {
-		console.log({topic})
+		console.log('sub --->'+topic)
+		netpie_client.subscribe(topic);
 		return;
 	},
 
 	publish : function(topic, payload) {
-		var message = new Paho.MQTT.Message(str_msg);
+		var message = new Paho.MQTT.Message(String(payload));
 		message.retained = false;
 		if (netpie_client && netpie_client.isConnected()) {
-			message.destinationName = '/'+self.appid+_topic;
+			message.destinationName = topic;
 			netpie_client.send(message);
 		}
 		return;
 	},
 
-	on : function(event, callback) {
-console.log({event, callback})
-		emitter.on(event, callback);
+	writeshadow : function(key, value) {
+		var payload = `{"data":{"${key}":${value}}}`;
+		var message = new Paho.MQTT.Message(String(payload));
+		message.retained = false;
+		if (netpie_client && netpie_client.isConnected()) {
+			message.destinationName = '@shadow/data/update';
+			netpie_client.send(message);
+		}
+		return;
+
 	}
 
 }
