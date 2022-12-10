@@ -87,18 +87,18 @@ let misc_func = {
 }
 
 
-
 let current_deviceid, current_devicetoken;
 
 function _onConnected() {
 	console.log('connected --------------->>>');
 	netpie_client.subscribe('@shadow/data/updated');
-	interpreter.appendCode('on_netpie_connected()');
+	netpie_client.subscribe('@private/#');
+	interpreter.appendCode('netpie_on_connected()');
 }
 
 function _onDisconnected() {
 	console.log('disconnected --------------->>>');
-	interpreter.appendCode('on_netpie_disconnected()');
+	interpreter.appendCode('netpie_on_disconnected()');
 	setTimeout(() => {
 		console.log('Auto reconnect...')
 		netpie_client.connect({
@@ -114,14 +114,17 @@ function _onDisconnected() {
 
 function _onMessage(msg) {
 	var topic = msg.destinationName;
-	var payload = msg.payloadString;
-	
+	var payload = msg.payloadString;	
 	if (topic.startsWith('@msg/')) {
 		interpreter.appendCode(`netpie_message_handle("${topic}","${payload}")`);
 	}
 	else if (topic.startsWith('@shadow/data/updated')) {
 		var jsontext = JSON.stringify(payload);
 		interpreter.appendCode(`netpie_shadow_updated_handle(${jsontext})`);
+	}
+	else if (topic == '@private/shadow/data/get/response') {	
+		var jsontext = JSON.stringify(payload);
+		interpreter.appendCode(`netpie_shadow_get_handle(${jsontext})`);		
 	}
 }
 
@@ -144,12 +147,13 @@ var netpie = {
 	},
 
 	subscribe : function(topic) {
-		console.log('sub --->'+topic)
 		netpie_client.subscribe(topic);
 		return;
 	},
 
 	publish : function(topic, payload) {
+		console.log('pub --->'+topic+'  -- ' + payload)
+
 		var message = new Paho.MQTT.Message(String(payload));
 		message.retained = false;
 		if (netpie_client && netpie_client.isConnected()) {
